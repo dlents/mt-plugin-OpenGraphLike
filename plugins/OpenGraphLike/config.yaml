@@ -20,7 +20,7 @@ settings:
     scope: blog
   fb_color:
     scope: blog
-  fb_send:
+  fb_share:
     scope: blog
   fb_size:
     scope: blog

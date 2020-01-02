@@ -77,14 +77,13 @@
   </select>
 </mtapp:setting>
 
-<!-- <mtapp:setting id="fb_send" label="<__trans phrase='Send Button'>" hint="" show_hint="0">
-  <input type="checkbox" name="fb_send" id="fb_send" value="1" <mt:if name="fb_send"> checked="checked"</mt:if>  />
-</mtapp:setting> -->
+<mtapp:setting id="fb_share" label="<__trans phrase='Include Share Button'>" hint="Include a Share button?" show_hint="1">
+  <input type="checkbox" name="fb_share" id="fb_share" value="1" <mt:if name="fb_share"> checked="checked"</mt:if>  />
+</mtapp:setting>
 
 <mtapp:setting id="fb_faces" label="<__trans phrase='Show Faces'>" hint="specifies whether to display profile photos below the button (standard layout only)" show_hint="1">
   <input type="checkbox" name="fb_faces" id="fb_faces" value="1" <mt:if name="fb_faces"> checked="checked"</mt:if>  />
 </mtapp:setting>
-
 
 <mtapp:setting id="fb_width" label="<__trans phrase='Width'>(px)" hint="the width of the plugin (standard layout only)." show_hint="1">
 <input type="text" name="fb_width" id="fb_width" value="<mt:GetVar name="fb_width">" />

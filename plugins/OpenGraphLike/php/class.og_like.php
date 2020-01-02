@@ -57,9 +57,10 @@ EOT;
      style="border:none; overflow:hidden; width: {$this->config['fb_width']}px;"
      data-href="{$url}"
      data-layout="{$this->config['fb_layout']}"
+     data-action="{$this->config['fb_verb']}"
+     data-share="{$this->config['fb_share']}"
      data-show-faces="{$show_faces}"
      data-width="{$this->config['fb_width']}"
-     data-action="{$this->config['fb_verb']}"
      data-size="{$this->config['fb_size']}"
      data-colorscheme="{$this->config['fb_color']}>"
 </div>
