@@ -1,6 +1,6 @@
 <fieldset>
   <legend><strong><__trans phrase="Common Settings" /></strong></legend>
-  
+
   <mtapp:setting id="og_lang" label="<__trans phrase="Language" />" hint="Language of your contents." show_hint="1">
     <select name="og_lang" id="og_lang">
       <option value="en"<mt:if var="og_lang" eq="en"> selected="selected"</mt:if>>English</option>
@@ -21,7 +21,7 @@
   </mtapp:setting>
 
 </fieldset>
-  
+
 
 <fieldset>
   <legend><strong>Google +1 <__trans phrase='Settings'></strong></legend>
@@ -51,10 +51,10 @@
     <select name="og_tweet_size" id="og_tweet_size">
       <option value="vertical"<mt:if var="og_tweet_size" eq="vertical"> selected="selected"</mt:if>><__trans phrase="Tall with count" /></option>
       <option value="horizontal"<mt:if var="og_tweet_size" eq="horizontal"> selected="selected"</mt:if>><__trans phrase="Horizontal with count" /></option>
-      <option value="none"<mt:if var="og_tweet_size" eq="none"> selected="selected"</mt:if>><__trans phrase="Horizontal without count" /></option>      
+      <option value="none"<mt:if var="og_tweet_size" eq="none"> selected="selected"</mt:if>><__trans phrase="Horizontal without count" /></option>
     </select>
   </mtapp:setting>
-  
+
   <mtapp:setting id="og_tweet_user" label="<__trans phrase='@ mention'>" hint="This user will be @ mentioned in the suggested Tweet" show_hint="1">
     <input type="text" name="og_tweet_user" id="og_tweet_user" value="<mt:GetVar name="og_tweet_user">" />
   </mtapp:setting>
@@ -62,7 +62,7 @@
 
 <fieldset>
   <legend><strong>Facebook Like <__trans phrase='Settings'></strong></legend>
-  
+
 <mtapp:setting id="fb_admins" label="FaceBook User/Application ID(s)" hint="A comma-separated list of either the Facebook IDs of page administrators or a Facebook Platform application ID. At a minimum, include only your own Facebook ID." show_hint="1">
   <input type="text" name="fb_admins" id="fb_admins" value="<mt:GetVar name="fb_admins">" />
 </mtapp:setting>
@@ -73,6 +73,7 @@
   <select name="fb_layout" id="fb_layout">
     <option value="standard"<mt:if var="fb_layout" eq="standard"> selected="selected"</mt:if>><__trans phrase='Standard' /></option>
     <option value="button_count"<mt:if var="fb_layout" eq="button_count"> selected="selected"</mt:if>><__trans phrase='Button_Count' /></option>
+    <option value="button"<mt:if var="fb_layout" eq="button"> selected="selected"</mt:if>><__trans phrase='Button' /></option>
     <option value="box_count"<mt:if var="fb_layout" eq="box_count"> selected="selected"</mt:if>><__trans phrase='Box_Count' /></option>
   </select>
 </mtapp:setting>
@@ -86,7 +87,7 @@
 </mtapp:setting>
 
 
-<mtapp:setting id="fb_width" label="<__trans phrase='Width'>(px)" hint="the width of the Like button." show_hint="1">
+<mtapp:setting id="fb_width" label="<__trans phrase='Width'>(px)" hint="the width of the plugin (standard layout only)." show_hint="1">
 <input type="text" name="fb_width" id="fb_width" value="<mt:GetVar name="fb_width">" />
 </mtapp:setting>
 
@@ -97,7 +98,7 @@
   </select>
 </mtapp:setting>
 
-<mtapp:setting id="fb_font" label="<__trans phrase='Font'>" hint="The font to display in the button." show_hint="1">
+<!-- <mtapp:setting id="fb_font" label="<__trans phrase='Font'>" hint="The font to display in the button." show_hint="1">
   <select name="fb_font" id="fb_font">
     <option value="arial"<mt:if var="fb_font" eq="arial"> selected="selected"</mt:if>>Arial</option>
     <option value="lucida grande"<mt:if var="fb_font" eq="lucida grande"> selected="selected"</mt:if>>Lucida Grande</option>
@@ -106,7 +107,7 @@
     <option value="trebuchet ms"<mt:if var="fb_font" eq="trebuchet ms"> selected="selected"</mt:if>>Trebuchet MS</option>
     <option value="verdana"<mt:if var="fb_font" eq="verdana"> selected="selected"</mt:if>>Verdana</option>
   </select>
-</mtapp:setting>
+</mtapp:setting> -->
 
 <mtapp:setting id="fb_color" label="<__trans phrase='Color Scheme'>" hint="The color scheme for the like button. " show_hint="1">
   <select name="fb_color" id="fb_color">
@@ -158,10 +159,10 @@
     <select name="og_hatena_size" id="og_hatena_size">
       <option value="vertical"<mt:if var="og_hatena_size" eq="vertical"> selected="selected"</mt:if>><__trans phrase="Tall with count" /></option>
       <option value="standard"<mt:if var="og_hatena_size" eq="standard"> selected="selected"</mt:if>><__trans phrase="Horizontal with count" /></option>
-      <option value="simple"<mt:if var="og_hatena_size" eq="simple"> selected="selected"</mt:if>><__trans phrase="Horizontal without count" /></option>      
+      <option value="simple"<mt:if var="og_hatena_size" eq="simple"> selected="selected"</mt:if>><__trans phrase="Horizontal without count" /></option>
     </select>
   </mtapp:setting>
-  
+
 </fieldset>
 
 
@@ -180,7 +181,7 @@
     <select name="og_gree_size" id="og_gree_size">
       <option value="16"<mt:if var="og_gree_size" eq="16"> selected="selected"</mt:if>>16px</option>
       <option value="20"<mt:if var="og_gree_size" eq="20"> selected="selected"</mt:if>>20px</option>
-      <option value="23"<mt:if var="og_gree_size" eq="23"> selected="selected"</mt:if>>23px</option>      
+      <option value="23"<mt:if var="og_gree_size" eq="23"> selected="selected"</mt:if>>23px</option>
     </select>
   </mtapp:setting>
 </fieldset>
