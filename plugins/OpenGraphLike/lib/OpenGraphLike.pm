@@ -86,7 +86,7 @@ sub _get_facebook_button {
         unless ($params{'config'}{'fb_layout'} eq "button_count") {$height = 80;}
     }
     my $like = '<!-- Like button code -->'
-        . '<div class="fb-like"'
+        . '<div class="fb-like" width="160"'
         . 'data-href="' . MT::Util::encode_url($params{'data'}{'og:url'}) . '"'
         . 'data-layout="' . $params{'config'}{'fb_layout'} . '"'
         . 'data-action="' . $params{'config'}{'fb_verb'} . '"'
