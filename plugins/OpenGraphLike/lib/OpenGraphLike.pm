@@ -3,16 +3,16 @@ package OpenGraphLike;
 use strict;
 use utf8;
 use warnings;
-use MT::Util qw( remove_html );
+use MT::Util qw(remove_html);
 # use Data::Dumper;
 
 sub _get_params {
     my ($ctx, $args, $cond) = @_;
     my %params;
-    $params{'blog'}   = $ctx->stash('blog') or return '';
+    $params{'blog'} = $ctx->stash('blog') or return '';
     $params{'config'} = MT->component("OpenGraphLike")->get_config_hash("blog:" . $params{'blog'}->id);
     $params{'entry'} = $ctx->stash('entry');
-    $params{'data'}  = {
+    $params{'data'} = {
         'og:title'       => $params{'blog'}->name,
         'og:site_name'   => $params{'blog'}->name,
         'og:url'         => $params{'blog'}->site_url,
@@ -22,12 +22,12 @@ sub _get_params {
     };
 
     if ($params{'entry'}) {
-        $params{'data'}{'og:url'}   = $params{'entry'}->permalink;
+        $params{'data'}{'og:url'} = $params{'entry'}->permalink;
         $params{'data'}{'og:title'} = $params{'entry'}->title;
         $params{'data'}{'og:description'} = $params{'config'}->{fb_excerpt} ? $params{'entry'}->excerpt : $params{'entry'}->text;
     }
     # remove html, new line chars and "
-    $params{'data'}{'og:description'} = substr( remove_html($params{'data'}{'og:description'}), 0, 200);
+    $params{'data'}{'og:description'} = substr(remove_html($params{'data'}{'og:description'}), 0, 200);
     $params{'data'}{'og:description'} =~ tr/\x0D\x0A\"//d;
 
     return %params;
@@ -41,24 +41,24 @@ sub _hdlr_opengraph_meta {
 sub _get_opengraph_meta {
     my %params = @_;
     my $meta = '';
-    while ( my ($key, $value) = each %{$params{'data'}} ) {
+    while (my ($key, $value) = each %{$params{'data'}}) {
         $meta .= '<meta property="' . $key . '" content="' . $value . '"/>';
     }
-    
+
     # Add og:image for assets
     if ($params{'entry'}) {
         use MT::Asset;
         use MT::ObjectAsset;
-        my @assets = MT::Asset->load({ class => 'image'}, {
+        my @assets = MT::Asset->load({ class => 'image' }, {
             join => MT::ObjectAsset->join_on(
-                'asset_id',{ object_ds => MT::Entry->datasource, object_id => $params{'entry'}->id})
+                'asset_id', { object_ds => MT::Entry->datasource, object_id => $params{'entry'}->id })
         });
         for my $asset (@assets) {
-            $meta .= '<meta property="og:image" content="'. $asset->url  . '"/>';
+            $meta .= '<meta property="og:image" content="' . $asset->url . '"/>';
         }
     }
     $meta .= '<script type="text/javascript" src="https://apis.google.com/js/plusone.js">'
-        .  "{lang: '" . $params{'config'}{'og_lang'} . "'}</script>";
+        . "{lang: '" . $params{'config'}{'og_lang'} . "'}</script>";
     return $meta;
 }
 
@@ -69,34 +69,31 @@ sub _hdlr_facebook_button {
 }
 sub _get_facebook_button {
     my %params = @_;
-    
+
     my $show_faces = "false";
-    my $send       = "false";
-    my $height     = 35;
+    my $send = "false";
+    my $height = 35;
     if ($params{'config'}{'fb_layout'} eq "button_count") {
         $height = 21;
-    } elsif ($params{'config'}{'fb_layout'} eq "box_count") {
+    }
+    elsif ($params{'config'}{'fb_layout'} eq "box_count") {
         $height = 90;
     }
 
-    if ( $params{'config'}{'fb_send'} )  { $send = "true";}
-    if ( $params{'config'}{'fb_faces'} ) {
+    if ($params{'config'}{'fb_send'}) {$send = "true";}
+    if ($params{'config'}{'fb_faces'}) {
         $show_faces = "true";
-        unless ($params{'config'}{'fb_layout'} eq "button_count") { $height = 80;}
+        unless ($params{'config'}{'fb_layout'} eq "button_count") {$height = 80;}
     }
-    my $like = '<iframe src="http://www.facebook.com/plugins/like.php?href='
-         .  MT::Util::encode_url($params{'data'}{'og:url'})
-         . '&amp;layout='      . $params{'config'}{'fb_layout'}
-         . '&amp;show_faces='  . $show_faces
-         . '&amp;send='        . $send
-         . '&amp;width='       . $params{'config'}{'fb_width'}
-         . '&amp;height='      . $height
-         . '&amp;action='      . $params{'config'}{'fb_verb'}
-         . '&amp;font='        . $params{'config'}{'fb_font'}
-         . '&amp;colorscheme=' . $params{'config'}{'fb_color'}
-         . '" scrolling="no" frameborder="0" style="border:none; overflow:hidden; '
-         . 'width:'        . $params{'config'}{'fb_width'}
-         . 'px; height: '    . $height . 'px;" allowTransparency="true"></iframe>';
+    my $like = '<!-- Like button code -->'
+        . '<div class="fb-like"'
+        . 'data-href="' . MT::Util::encode_url($params{'data'}{'og:url'}) . '"'
+        . 'data-layout="' . $params{'config'}{'fb_layout'} . '"'
+        . 'data-action="' . $params{'config'}{'fb_verb'} . '"'
+        . 'data-show-faces="' . $show_faces . '"'
+        . 'data-colorscheme="' . $params{'config'}{'fb_color'} . '"'
+        . 'data-size="' . $params{'config'}{'fb_size'} . '"'
+        . 'data-width="' . $params{'config'}{'fb_width'} . '"';
     return $like;
 }
 
@@ -106,7 +103,7 @@ sub _hdlr_google_button {
 }
 sub _get_google_button {
     my %params = @_;
-    
+
     my $button = "<g:plusone ";
     if ($params{'config'}{'og_google_callback'}) {
         $button .= ' callback="' . $params{'config'}{'og_google_callback'} . '" ';
@@ -126,16 +123,16 @@ sub _hdlr_tweet_button {
     return &_get_tweet_button(%params);
 }
 sub _get_tweet_button {
-    my %params = @_;    
+    my %params = @_;
 
-    my $button = '<a href="http://twitter.com/share" class="twitter-share-button" data-lang="' . $params{'config'}{'og_lang'}  . '" data-url="' . $params{'data'}{'og:url'} . '"';
+    my $button = '<a href="https://twitter.com/share" class="twitter-share-button" data-lang="' . $params{'config'}{'og_lang'} . '" data-url="' . $params{'data'}{'og:url'} . '"';
     if ($params{'config'}{'og_tweet_size'}) {
-        $button .= ' data-count="'. $params{'config'}{'og_tweet_size'} . '" ';
+        $button .= ' data-count="' . $params{'config'}{'og_tweet_size'} . '" ';
     }
     if ($params{'config'}{'og_tweet_user'}) {
         $button .= ' data-via="' . $params{'config'}{'og_tweet_user'} . '" ';
     }
-    $button .= '>Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>';
+    $button .= '>Tweet</a><script type="text/javascript" src="https://platform.twitter.com/widgets.js"></script>';
     return $button;
 }
 
@@ -144,10 +141,10 @@ sub _hdlr_tumblr_js {
     return &_get_tumblr_js(%params);
 }
 sub _get_tumblr_js {
-    my %params = @_;    
+    my %params = @_;
 
     my $width = "20px";
-    if ( index($params{'config'}{'og_tmblr_size'},"_1")) { $width = "81px";}
+    if (index($params{'config'}{'og_tmblr_size'}, "_1")) {$width = "81px";}
     return <<EOD;
 <script type="text/javascript">
     var tumblr_link_url = "$params{'data'}{'og:url'}";
@@ -176,7 +173,7 @@ sub _hdlr_evernote_button {
     return &_get_evernote_button(%params);
 }
 sub _get_evernote_button {
-    my %params = @_;    
+    my %params = @_;
     return <<EOD;
 <script type="text/javascript" src="http://static.evernote.com/noteit.js"></script>
 <a href="#" onclick="Evernote.doClip({contentId:'$params{'config'}{'og_evernote_id'}',providerName:'$params{'data'}{'og:title'}',suggestNotebook:'$params{'config'}{'og_evernote_book'}',code:'$params{'config'}{'og_evernote_code'}'}); return false;"><img src="http://static.evernote.com/$params{'config'}{'og_evernote_size'}.png" alt="Clip to Evernote" /></a>
@@ -188,7 +185,7 @@ sub _hdlr_hatena_button {
     return &_get_hatena_button(%params);
 }
 sub _get_hatena_button {
-    my %params = @_;    
+    my %params = @_;
     my $button = '<a href="http://b.hatena.ne.jp/entry/'
         . $params{'data'}{'og:url'} . '" class="hatena-bookmark-button" data-hatena-bookmark-title="'
         . $params{'data'}{'og:title'} . '" data-hatena-bookmark-layout="'
@@ -201,7 +198,7 @@ sub _hdlr_mixi_button {
     return &_get_mixi_button(%params);
 }
 sub _get_mixi_button {
-    my %params = @_;    
+    my %params = @_;
     return <<EOF
 <a href="http://mixi.jp/share.pl" class="mixi-check-button" data-key="$params{'config'}{'og_mixi_key'}" data-url="$params{'data'}{'og:url'}" data-button="button-3">Check</a><script type="text/javascript" src="http://static.mixi.jp/js/share.js"></script>
 EOF
@@ -212,24 +209,24 @@ sub _hdlr_gree_button {
     return &_get_gree_button(%params);
 }
 sub _get_gree_button {
-    my %params = @_;    
+    my %params = @_;
     return <<EOF
     <iframe src="http://share.gree.jp/share?url=$params{'data'}{'og:url'}&type=0&height=$params{'config'}{'og_gree_size'}" scrolling="no" frameborder="0" marginwidth="0" marginheight="0" style="border:none; overflow:hidden; width:100px; height: $params{'config'}{'og_gree_size'}px;" allowTransparency="true"></iframe>
 EOF
-        # return Dumper(\%params);
+    # return Dumper(\%params);
 }
 
 sub _hdlr_like_buttons {
     my %params = &_get_params(@_);
 
     return &_get_facebook_button(%params)
-            . &_get_google_button(%params)
-            . &_get_tweet_button(%params)
-            . &_get_evernote_button(%params)
-            . &_get_hatena_button(%params)
-            . &_hdlr_tumblr_button()
-            . &_get_mixi_button(%params)
-            . &_get_gree_button(%params);
+        . &_get_google_button(%params)
+        . &_get_tweet_button(%params)
+        . &_get_evernote_button(%params)
+        . &_get_hatena_button(%params)
+        . &_hdlr_tumblr_button()
+        . &_get_mixi_button(%params)
+        . &_get_gree_button(%params);
 }
 
 1;
