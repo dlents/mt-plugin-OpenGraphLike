@@ -2,16 +2,16 @@
 class OGLike {
     protected $ogdata = array();
     protected $config = array();
-    
+
     function __construct ($args, &$ctx) {
         require_once "function.mtentrypermalink.php";
-        
+
         $id     = $ctx->stash('blog_id');
         $entry  = $ctx->stash('entry');
         $blog   = $ctx->stash('blog');
         $this->config = $ctx->mt->db()->fetch_plugin_data('OpenGraphLike', "configuration:blog:$id");
-        
-        if (!$blog) { return $ctx->error("Error : No blog");}        
+
+        if (!$blog) { return $ctx->error("Error : No blog");}
         if ($entry) {
             $this->ogdata['url']   = smarty_function_mtentrypermalink($args, $ctx);
             $this->ogdata['title'] = strip_tags($entry->title);
@@ -37,7 +37,7 @@ EOT;
     public function _get_facebooklike() {
 
         $show_faces = "false";
-        $send       = "false";
+        // $send       = "false";
         $height     = 35;
         if ($this->config['fb_layout'] === "button_count") {
             $height = 21;
@@ -45,7 +45,7 @@ EOT;
             $height = 90;
         }
 
-        if ( $this->config['fb_send'] )  { $send = "true";}
+        // if ( $this->config['fb_send'] )  { $send = "true";}
         if ( $this->config['fb_faces'] ) {
             $show_faces = "true";
             if ($this->config['fb_layout'] !== "button_count") { $height = 80;}
@@ -53,10 +53,19 @@ EOT;
         $url = urlencode($this->ogdata['url']);
 
         return <<<EOT
-<iframe src="http://www.facebook.com/plugins/like.php?href={$url}&amp;layout={$this->config['fb_layout']}&amp;show_faces={$show_faces}&amp;send={$send}&amp;width={$this->config['fb_width']}&amp;height={$height}&amp;action={$this->config['fb_verb']}&amp;font={$this->config['fb_font']}&amp;colorscheme={$this->config['fb_color']}" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width: {$this->config['fb_width']}px; height: {$height}px;" allowTransparency="true"></iframe>
+<div class="fb-like"
+     style="border:none; overflow:hidden; width: {$this->config['fb_width']}px;"
+     data-href="{$url}"
+     data-layout="{$this->config['fb_layout']}"
+     data-show-faces="{$show_faces}"
+     data-width="{$this->config['fb_width']}"
+     data-action="{$this->config['fb_verb']}"
+     data-size="{$this->config['fb_size']}"
+     data-colorscheme="{$this->config['fb_color']}>"
+</div>
 EOT;
     }
-    
+
     public function _get_googleplus() {
 
         $button = "<g:plusone ";
@@ -70,20 +79,20 @@ EOT;
             $button .= ' size="' . $this->config['og_google_size'] . '"';
         }
         $button .= ' href="' . $this->ogdata['url'] . '"></g:plusone>';
-    
+
         return $button;
     }
-    
+
     public function _get_tweet() {
 
-        $button = '<a href="http://twitter.com/share" class="twitter-share-button" data-lang="' . $this->config['og_lang']  . '" data-url="' . $this->ogdata['url'] . '"';
+        $button = '<a href="https://twitter.com/share" class="twitter-share-button" data-lang="' . $this->config['og_lang']  . '" data-url="' . $this->ogdata['url'] . '"';
         if ($this->config['og_tweet_size']) {
             $button .= ' data-count="'. $this->config['og_tweet_size'] . '" ';
         }
         if ($this->config['og_tweet_user']) {
             $button .= ' data-via="' . $this->config['og_tweet_user'] . '" ';
         }
-        $button .= '>Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>';
+        $button .= '>Tweet</a><script type="text/javascript" src="https://platform.twitter.com/widgets.js"></script>';
         return $button;
     }
 
@@ -117,7 +126,7 @@ EOT;
         return <<<EOT
 <a href="http://b.hatena.ne.jp/entry/{$this->ogdata['url']}" class="hatena-bookmark-button" data-hatena-bookmark-title="{$this->ogdata['title']}" data-hatena-bookmark-layout="{$this->config['og_hatena_size']}" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
 EOT;
-    }    
+    }
 
     public function _get_evernote() {
         return <<<EOT

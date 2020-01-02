@@ -93,7 +93,8 @@ sub _get_facebook_button {
         . 'data-show-faces="' . $show_faces . '"'
         . 'data-colorscheme="' . $params{'config'}{'fb_color'} . '"'
         . 'data-size="' . $params{'config'}{'fb_size'} . '"'
-        . 'data-width="' . $params{'config'}{'fb_width'} . '"';
+        . 'data-width="' . $params{'config'}{'fb_width'} . '">'
+        . '</div>';
     return $like;
 }
 
