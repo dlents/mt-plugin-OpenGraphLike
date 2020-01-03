@@ -42,7 +42,7 @@ sub _get_opengraph_meta {
     my %params = @_;
     my $meta = '';
     while (my ($key, $value) = each %{$params{'data'}}) {
-        $meta .= '<meta property="' . $key . '" content="' . $value . '"/>';
+        $meta .= '<meta property="' . $key . '" content="' . $value . '"/>' . "\n";
     }
 
     # Add og:image for assets
@@ -54,11 +54,11 @@ sub _get_opengraph_meta {
                 'asset_id', { object_ds => MT::Entry->datasource, object_id => $params{'entry'}->id })
         });
         for my $asset (@assets) {
-            $meta .= '<meta property="og:image" content="' . $asset->url . '"/>';
+            $meta .= '<meta property="og:image" content="' . $asset->url . '"/>' . "\n";
         }
     }
     $meta .= '<script type="text/javascript" src="https://apis.google.com/js/plusone.js">'
-        . "{lang: '" . $params{'config'}{'og_lang'} . "'}</script>";
+        . "{lang: '" . $params{'config'}{'og_lang'} . "'}</script>\n";
     return $meta;
 }
 
