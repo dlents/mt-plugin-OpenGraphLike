@@ -77,6 +77,13 @@
   </select>
 </mtapp:setting>
 
+<mtapp:setting id="fb_size" label="<__trans phrase='Size to Display'>" hint="The button is offered in 2 sizes (large and small)." show_hint="1">
+  <select name="fb_size" id="fb_size">
+    <option value="small"<mt:if var="fb_size" eq="small"> selected="selected"</mt:if>>Small</option>
+    <option value="large"<mt:if var="fb_size" eq="large"> selected="selected"</mt:if>>Large</option>
+  </select>
+</mtapp:setting>
+
 <mtapp:setting id="fb_share" label="<__trans phrase='Include Share Button'>" hint="Include a Share button?" show_hint="1">
   <input type="checkbox" name="fb_share" id="fb_share" value="1" <mt:if name="fb_share"> checked="checked"</mt:if>  />
 </mtapp:setting>

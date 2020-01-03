@@ -91,7 +91,7 @@ sub _get_facebook_button {
         . 'data-href="' . MT::Util::encode_url($params{'data'}{'og:url'}) . '"'
         . 'data-layout="' . $params{'config'}{'fb_layout'} . '"'
         . 'data-action="' . $params{'config'}{'fb_verb'} . '"'
-        . 'data-share="' . $params{'config'}{'fb-share'} . '"'
+        . 'data-share="' . $params{'config'}{'fb_share'} . '"'
         . 'data-show-faces="' . $show_faces . '"'
         . 'data-colorscheme="' . $params{'config'}{'fb_color'} . '"'
         . 'data-size="' . $params{'config'}{'fb_size'} . '"'
