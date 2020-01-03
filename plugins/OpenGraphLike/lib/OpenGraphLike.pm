@@ -57,8 +57,9 @@ sub _get_opengraph_meta {
             $meta .= '<meta property="og:image" content="' . $asset->url . '"/>' . "\n";
         }
     }
-    $meta .= '<script type="text/javascript" src="https://apis.google.com/js/plusone.js">'
-        . "{lang: '" . $params{'config'}{'og_lang'} . "'}</script>\n";
+    # $meta .= '<script type="text/javascript" src="https://apis.google.com/js/plusone.js">'
+    #     . "{lang: '" . $params{'config'}{'og_lang'} . "'}</script>\n";
+    $meta .= '<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>' . "\n";
     return $meta;
 }
 
