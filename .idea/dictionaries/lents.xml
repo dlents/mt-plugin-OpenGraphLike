@@ -2,6 +2,7 @@
   <dictionary name="lents">
     <words>
       <w>colorscheme</w>
+      <w>namepx</w>
     </words>
   </dictionary>
 </component>
