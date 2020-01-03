@@ -87,7 +87,7 @@ sub _get_facebook_button {
     }
     my $width = $params{'config'}{'fb_width'} * 2 + 10;
     my $like = '<!-- Like button code -->'
-        . '<div class="fb-like" style="border:none; overflow:hidden; width:' . $width . '"'
+        . '<div class="fb-like" style="border:none; overflow:hidden; width:' . $width . 'px"'
         . 'data-href="' . MT::Util::encode_url($params{'data'}{'og:url'}) . '"'
         . 'data-layout="' . $params{'config'}{'fb_layout'} . '"'
         . 'data-action="' . $params{'config'}{'fb_verb'} . '"'
