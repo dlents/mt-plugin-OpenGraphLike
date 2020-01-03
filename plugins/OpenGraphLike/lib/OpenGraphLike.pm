@@ -86,7 +86,14 @@ sub _get_facebook_button {
         $show_faces = "true";
         unless ($params{'config'}{'fb_layout'} eq "button_count") {$height = 80;}
     }
-    my $width = $params{'config'}{'fb_width'} * 2 + 10;
+
+    # set extra width if adding share
+    my $width = $params{'config'}{'fb_width'};
+    if ($params{'config'}{'fb_share'}) {
+        if ($params{'config'}{'fb_share'} eq "true") {
+            $width = $width * 2 + 10;
+        }
+    }
     my $like = '<!-- Like button code -->'
         . '<div class="fb-like" style="border:none; overflow:hidden; width:' . $width . 'px; height: ' . $height . 'px;"'
         . 'data-href="' . MT::Util::encode_url($params{'data'}{'og:url'}) . '"'
