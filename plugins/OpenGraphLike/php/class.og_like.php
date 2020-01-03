@@ -54,7 +54,7 @@ EOT;
         $width = $this->config['fb_width'] * 2 + 10;
         return <<<EOT
 <div class="fb-like"
-     style="border:none; overflow:hidden; width:{$width}px;"
+     style="border:none; overflow:hidden; width:{$width}px; height: {$height}px;"
      data-href="{$url}"
      data-layout="{$this->config['fb_layout']}"
      data-action="{$this->config['fb_verb']}"
